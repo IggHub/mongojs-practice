@@ -8,4 +8,4 @@ Includes:
 - [dotenv](https://www.npmjs.com/package/dotenv) for secrets
 - [cors](https://www.npmjs.com/package/cors) to enable [cors](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 
-To start, `npm install`, then `npm run start`
+To start, `npm install`, then create `.env` folder and put `PORT=3000`, then `npm run start`
