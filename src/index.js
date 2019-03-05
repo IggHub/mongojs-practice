@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 });
 
 
-const UserData = mongoose.model('User', userSchema);
+const UserData = mongoose.model('User', userSchema); // model(collectionName, schema)
 
 const app = express();
 
@@ -52,10 +52,14 @@ app.get('/', (req, res) => {
 
 app.get('/users', async (req, res) => {
   const users = await req.context.models.users.find();
-  console.log('users:', users);
   res.send(users);
 });
 
+app.get('/users/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  const user = await req.context.models.users.findById(userId)
+  res.send(user);
+});
 
 // create fake data
 const createUser = async () => {
