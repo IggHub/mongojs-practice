@@ -2,6 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+
+const router = express.Router();
 // First, it needs to:
 // connect
 // new Schema
@@ -34,8 +36,24 @@ connectDB().then( async () => {
   app.listen(process.env.PORT);
 });
 
+app.use(async (req, res, next) => {
+  req.context = {
+    models: {
+      users: UserData
+    }
+  };
+
+  next();
+});
+
 app.get('/', (req, res) => {
   res.send('hello root!');
+});
+
+app.get('/users', async (req, res) => {
+  const users = await req.context.models.users.find();
+  console.log('users:', users);
+  res.send(users);
 });
 
 
