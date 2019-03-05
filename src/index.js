@@ -2,8 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import routes from './routes';
 
-const router = express.Router();
 // First, it needs to:
 // connect
 // new Schema
@@ -36,7 +36,7 @@ connectDB().then( async () => {
   app.listen(process.env.PORT);
 });
 
-app.use(async (req, res, next) => {
+app.use((req, res, next) => {
   req.context = {
     models: {
       users: UserData
@@ -50,16 +50,24 @@ app.get('/', (req, res) => {
   res.send('hello root!');
 });
 
-app.get('/users', async (req, res) => {
-  const users = await req.context.models.users.find();
-  res.send(users);
-});
+/* REST */
+app.use('/users', routes.user);
 
-app.get('/users/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  const user = await req.context.models.users.findById(userId)
-  res.send(user);
-});
+//router.post('/users', async(req, res) => {
+//  const newData = {
+//    username: req.body.username,
+//    age: req.body.age
+//  };
+//
+//  console.log('newData: ', newData);
+//  try {
+//    const newUser = await req.context.model.users.create(newData);
+//
+//    res.send(newUser); 
+//  } catch(e) {
+//    return e;
+//  }
+//});
 
 // create fake data
 const createUser = async () => {
