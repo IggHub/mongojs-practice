@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes';
+import path from 'path';
 
 // First, it needs to:
 // connect
@@ -23,6 +24,11 @@ const userSchema = new mongoose.Schema({
 const UserData = mongoose.model('User', userSchema); // model(collectionName, schema)
 
 const app = express();
+
+// setting up hbs
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+// end hbs setup
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,8 +52,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// renders indes.hbs
 app.get('/', (req, res) => {
-  res.send('hello root!');
+  res.render('index');
 });
 
 /* REST */

@@ -1,0 +1,49 @@
+<div>Index.hbs</div>
+
+<section>
+  <h1>Create User</h1>
+  <form action="/users" method="post">
+    <div>
+      <label for="username">Username</label>
+      <input type="text" name="username" />
+    </div> 
+
+    <div>
+      <label for="age">Age</label>
+      <input type="number" name="age" />
+    </div> 
+  
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<section>
+  <h1>Display Users</h1>
+  <form action="/users" method="get">
+   
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<section>
+  <h1>Update User</h1>
+  <form action="/update" method="post">
+    <div>
+      <label for="id">ID</label>
+      <input type="text" name="id" />
+    </div> 
+    <button type="submit">Update</button>
+  </form>
+</section>
+
+<section>
+  <h1>Delete User</h1>
+  <form action="/delete" method="post">
+    <div>
+      <label for="id">ID</label>
+      <input type="text" name="id">
+    </div>
+
+    <button type="submit">Delete</button>
+  </form>
+</section>
