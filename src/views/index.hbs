@@ -27,23 +27,30 @@
 
 <section>
   <h1>Update User</h1>
-  <form action="/update" method="post">
+  <form action="/users/update" method="post">
     <div>
       <label for="id">ID</label>
       <input type="text" name="id" />
     </div> 
+    <div>
+      <label for="username">Username</label>
+      <input type="text" name="username" />
+    </div>
+    <div>
+      <label for="age">Age</label>
+      <input type="text" name="age" />
+    </div>
     <button type="submit">Update</button>
   </form>
 </section>
 
 <section>
   <h1>Delete User</h1>
-  <form action="/delete" method="post">
+  <form action="/users/delete" method="post">
     <div>
       <label for="id">ID</label>
-      <input type="text" name="id">
-    </div>
-
+      <input type="text" name="id" />
+    </div> 
     <button type="submit">Delete</button>
   </form>
 </section>

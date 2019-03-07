@@ -42,16 +42,18 @@ router.post('/', async (req, res) => {
  * curl -X PUT http://localhost:3000/users/user-id-here -d age=100 -d username=iggyupdate 
  * curl -X -H "Content-Type:application/json" http://localhost:3000/users/user-id-here -d '{"username":"iggyupdate", "age":"100"}'
  */
-router.put('/:userId', async (req, res) => {
-  const userId = req.params.userId;
+
+/* curl -X POST -H "Content-Type:application/json" http://localhost:3000/users/update -d '{"id": "some-id-here", "age": 31, "username": "someusername"}'*/
+router.post('/update', async (req, res) => {
+  const userId = req.body.id;
   console.log('username body:', req.body);
-  let result = null;
+  let user = null;
   try{
-    result = await req.context.models.users.findOneAndUpdate(userId, {
-      username: req.body.username,
-      age: req.body.age
-    })
-    res.send(result);
+    user = await req.context.models.users.findById(userId);
+    user.username = req.body.username;
+    user.age = req.body.age;
+    user.save();
+    res.redirect('/');
   } catch(e) {
     console.log("Error: ", e);
     res.status(500).send("An error occurred!");
@@ -59,16 +61,17 @@ router.put('/:userId', async (req, res) => {
 });
 
 /* curl -X DELETE http://localhost:3020/users/some-user-id */
-router.delete('/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  let result = null;
+router.post('/delete', async (req, res) => {
+  const userId = req.body.id;
+  console.log('user body:', req.body);
+  let user = null;
   try {
-    const user = await req.context.models.users.findById(userId);
-    result = await user.remove(); 
-    res.send(result);
+    user = await req.context.models.users.findByIdAndRemove(userId);
+    console.log('user: ', user);
+    res.redirect('/');
   } catch(e) {
     console.log("Error: ", e);
-    res.status(500).send("An error occurred!");
+    res.status(500).send("An error occurred: ", e);
   }
 });
 export default router;
